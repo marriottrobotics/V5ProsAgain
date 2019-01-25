@@ -1,5 +1,10 @@
 #include "main.h"
 
+#define BLUE false
+#define RED true
+#define TOP true
+#define BOTTOM false
+
 bool red = false;
 bool top = false;
 
@@ -34,53 +39,53 @@ void autonomous() {
 
 void configureAuton(){
   if(jRed.get_value() == HIGH){
-    red = true;
+    red = RED;
   }else{
-    red = false;
+    red = BLUE;
   }
 
   if(jTop.get_value() == HIGH){
-    top = true;
+    top = TOP;
   }else{
-    top = false;
+    top = BOTTOM;
   }
 
   if(red && top){
-    pros::lcd::set_text(0, "Red Top");
+    pros::lcd::print(0, "Red Top");
   }else if(red && !top){
-    pros::lcd::set_text(0, "Red Bottom");
+    pros::lcd::print(0, "Red Bottom");
   }else if(!red && top){
-    pros::lcd::set_text(0, "Blue Top");
+    pros::lcd::print(0, "Blue Top");
   }else if(!red && !top){
-    pros::lcd::set_text(0, "Blue Bottom");
+    pros::lcd::print(0, "Blue Bottom");
   }
 }
 
 void autonTop(){
-   loader.move(-127);
+   loader.move(127);
    drive(1115, 50);
-   loader.move_relative(-1080, 100);
+   loader.move_relative(1080, 100);
 
   drive(-1000, 50); //Drive until line sensor
   turnUp(650, 50); //Then coordinate with ultrasonic sensors
   alignUltrasonic();
   drive(300, 50);
   catipult.move_relative(1080, 100);
-  loader.move(-127);
+  loader.move(127);
   drive(500, 50); //Then check ultrasonic distance
-  loader.move_relative(-1440, -100);
+  loader.move_relative(1440, -100);
   catipult.move_relative(1080, 100);
   slideUp(170, 100);
   drive(600, 50);
 }
 
 void autonBottom(){
-  loader.move(-127);
+  loader.move(127);
   drive(1115, 50);
-  loader.move_relative(-1080, 100);
+  loader.move_relative(1080, 100);
 
   drive(-400, 50);
-  loader.move(127);
+  loader.move(-127);
 
   slideUp(-675, 100);
 

@@ -22,7 +22,6 @@
  * For instance, E_CONTROLLER_MASTER has a shorter name: CONTROLLER_MASTER.
  * E_CONTROLLER_MASTER is pedantically correct within the PROS styleguide, but
  * not convienent for most student programmers.
-
  */
 #define PROS_USE_SIMPLE_NAMES
 
@@ -81,7 +80,7 @@ extern Motor leftDriveR; // (11, MOTOR_DEF);
 extern Motor rightDriveF; // (10, MOTOR_REV);
 extern Motor rightDriveR; // (19, MOTOR_REV);
 
-extern Motor loader; // (1, MOTOR_DEF);
+extern Motor loader; // (1, MOTOR_REV);
 extern Motor catipult; // (20, MOTOR_DEF);
 
 extern Motor towerLeft; //(12, MOTOR_DEF);

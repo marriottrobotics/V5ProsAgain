@@ -8,7 +8,7 @@ Motor leftDriveR (11, MOTOR_DEF);
 Motor rightDriveF (10, MOTOR_REV);
 Motor rightDriveR (19, MOTOR_REV);
 
-Motor loader (1, MOTOR_DEF);
+Motor loader (1, MOTOR_REV);
 Motor catipult (20, MOTOR_REV);
 
 Motor towerLeft (12, MOTOR_DEF);
@@ -23,16 +23,6 @@ ADIUltrasonic ultraRight (5, 6);
 ADILineSensor lineRight (7);
 ADILineSensor lineLeft(8);
 
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
-}
-
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -41,9 +31,7 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Everything Running ish.");
-
-	pros::lcd::register_btn1_cb(on_center_button);
+	pros::lcd::print(1, "Everything Running ish.");
 }
 
 /**
@@ -63,6 +51,9 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
+	lineRight.calibrate();
+	lineLeft.calibrate();
+
 	while(true){
 		configureAuton();
 		delay(50);

@@ -2,8 +2,6 @@
 
 void powerDrive(int leftf, int leftb, int rightf, int rightb);
 void fpsControl();
-void loaderSpinUp();
-void loaderSpinDown();
 void updateLoader();
 void updateBrakes();
 void brake();
@@ -15,8 +13,6 @@ void updateTower();
 
 int driveMode = 0;
 int loaderMode = 0;
-
-int towerTarget = 0;
 
 bool direction = false; //False is normal
 bool brakes = false;
@@ -34,9 +30,6 @@ bool brakes = false;
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-
-	//pot.calibrate();
-
 	while (true) {
 		fpsControl();
 		updateLoader();
@@ -99,15 +92,6 @@ void powerDrive(int leftf, int leftb, int rightf, int rightb){
 
 //Loader Stuff -----------------------------------------------------------------
 void updateLoader(){
-	//Controller.ButtonX.pressed( loaderSpinUp );
-  //Controller.ButtonB.pressed( loaderSpinDown );
-	//Event based process not in use.
-	/*if(joystick.get_digital_new_press(DIGITAL_X)){
-		loaderSpinUp();
-	}else if(joystick.get_digital_new_press(DIGITAL_B)){
-		loaderSpinDown();
-	}*/
-
 	//Loader - Also handled by event stuff
 	if(joystick.get_digital(DIGITAL_R2)){ //Should load the ball up.
 			loader.move(127);
@@ -118,16 +102,6 @@ void updateLoader(){
   }else if(loaderMode == 0){
 			loader.move_absolute(loader.get_position(), 100);
   }
-}
-
-void loaderSpinDown(){
-    if(loaderMode != 1){
-        loaderMode = 1;
-				loader.move(127);
-    }else if(loaderMode == 1){
-        loaderMode = 0;
-				loader.move_absolute(loader.get_position(), 100);
-    }
 }
 
 void loaderSpinUp(){
@@ -162,20 +136,27 @@ void brake(){
 }
 //End Brake Stuff --------------------------------------------------------------
 
-
 //Catipult Stuff ---------------------------------------------------------------
 void fire(){
 	catipult.move_relative(1080, 100);
 }
 
 void updateCatipult(){
-    if(catipult.get_power() > 1.0 && catipult.is_stopped()){
-        //Catipult.stop(vex::brakeType::coast);
-    }
+	printf("Catipult Voltate %d \n", catipult.get_voltage());
+	//Automated kill switch. Not sure if it works.
+	if(catipult.get_voltage() >= 200 && catipult.is_stopped()){
+		pros::lcd::set_text(0, "WATCHDOG!!!");
+		catipult.move(0);
+	}
 
-		if(joystick.get_digital_new_press(DIGITAL_R1)){
-			fire();
-		}
+	//Manual Kill Switch.
+	if(joystick.get_digital_new_press(DIGITAL_X)){
+		catipult.move(0);
+	}
+
+	if(joystick.get_digital_new_press(DIGITAL_R1)){
+		fire();
+	}
 }
 //End Catipult Stuff -----------------------------------------------------------
 
@@ -199,16 +180,20 @@ void directionSwap(){
 void updateTower(){
 	//Tower everything
 	if(joystick.get_digital(DIGITAL_DOWN)){
-		towerTarget+=10;
+		towerLeft.move(127/2);
+		towerRight.move(127/2);
 	}else if(joystick.get_digital(DIGITAL_UP)){
-		towerTarget-=10;
+		towerLeft.move(-127/2);
+		towerRight.move(-127/2);
 	}else if(joystick.get_digital_new_press(DIGITAL_LEFT)){
-		towerTarget=1000; //Tower slam on post.
+		towerLeft.move_absolute(93, 100);
+		towerRight.move_absolute(93, 100);
 	}else if(joystick.get_digital_new_press(DIGITAL_RIGHT)){
-		towerTarget=3000; //Tower down.
+		towerLeft.move_absolute(414, 100);
+		towerRight.move_absolute(414, 100);
+	}else{
+		towerLeft.move_absolute(towerLeft.get_position(), 100);
+		towerRight.move_absolute(towerRight.get_position(), 100);
 	}
-	//Now move the motors
-	towerLeft.move_absolute(towerTarget, 100);
-	towerRight.move_absolute(towerTarget, 100);
 }
 //End Tower Stuff --------------------------------------------------------------
