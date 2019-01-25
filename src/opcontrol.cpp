@@ -97,7 +97,7 @@ void powerDrive(int leftf, int leftb, int rightf, int rightb){
     }
 }
 
-//Loader Stuff ----------------------------------------------------------------
+//Loader Stuff -----------------------------------------------------------------
 void updateLoader(){
 	//Controller.ButtonX.pressed( loaderSpinUp );
   //Controller.ButtonB.pressed( loaderSpinDown );
@@ -139,10 +139,10 @@ void loaderSpinUp(){
         loader.move_absolute(loader.get_position(), 100);
     }
 }
-//End loader stuff --------------------------------------------------------
+//End loader stuff -------------------------------------------------------------
 
 
-//Brake Stuff --------------------------------------------------------------
+//Brake Stuff ------------------------------------------------------------------
 void updateBrakes(){
 	if(joystick.get_digital_new_press(DIGITAL_L1)){
 		brake();
@@ -160,10 +160,10 @@ void brake(){
       brakes = true;
     }
 }
-//End Brake Stuff -------------------------------------------------------------
+//End Brake Stuff --------------------------------------------------------------
 
 
-//Catipult Stuff --------------------------------------------------------------
+//Catipult Stuff ---------------------------------------------------------------
 void fire(){
 	catipult.move_relative(1080, 100);
 }
@@ -177,9 +177,9 @@ void updateCatipult(){
 			fire();
 		}
 }
-//End Catipult Stuff ----------------------------------------------------------
+//End Catipult Stuff -----------------------------------------------------------
 
-//Direction Swapping ----------------------------------------------------------
+//Direction Swapping -----------------------------------------------------------
 void updateDirection(){
 		if(joystick.get_digital_new_press(DIGITAL_A)){
 			directionSwap();
@@ -195,7 +195,7 @@ void directionSwap(){
 }
 //End Direction Swapping -------------------------------------------------------
 
-//Tower stuff ------------------------------------------------------------------
+//Tower Stuff ------------------------------------------------------------------
 void updateTower(){
 	//Tower everything
 	if(joystick.get_digital(DIGITAL_DOWN)){
@@ -211,3 +211,4 @@ void updateTower(){
 	towerLeft.move_absolute(towerTarget, 100);
 	towerRight.move_absolute(towerTarget, 100);
 }
+//End Tower Stuff --------------------------------------------------------------
