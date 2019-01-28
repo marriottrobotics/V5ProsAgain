@@ -37,7 +37,6 @@ void opcontrol() {
 		updateDirection();
 		updateCatipult();
 		updateTower();
-
 		delay(20);
 	}
 }
@@ -146,7 +145,7 @@ void updateCatipult(){
 	//Automated kill switch. Not sure if it works.
 	if(catipult.get_voltage() >= 200 && catipult.is_stopped()){
 		pros::lcd::set_text(0, "WATCHDOG!!!");
-		catipult.move(0);
+		//catipult.move(0);
 	}
 
 	//Manual Kill Switch.
@@ -192,8 +191,8 @@ void updateTower(){
 		towerLeft.move_absolute(414, 100);
 		towerRight.move_absolute(414, 100);
 	}else{
-		towerLeft.move_absolute(towerLeft.get_position(), 100);
-		towerRight.move_absolute(towerRight.get_position(), 100);
+		towerLeft.move_velocity(0);
+		towerRight.move_velocity(0);
 	}
 }
 //End Tower Stuff --------------------------------------------------------------

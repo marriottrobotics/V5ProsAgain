@@ -30,6 +30,8 @@ ADILineSensor lineLeft(8);
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	towerLeft.set_brake_mode(MOTOR_BRAKE_HOLD);
+	towerRight.set_brake_mode(MOTOR_BRAKE_HOLD);
 	pros::lcd::initialize();
 	pros::lcd::print(1, "Everything Running ish.");
 }
