@@ -11,7 +11,7 @@ Motor rightDriveR (19, MOTOR_REV);
 Motor loader (1, MOTOR_REV);
 Motor catipult (20, MOTOR_REV);
 
-Motor towerLeft (12, MOTOR_DEF);
+//Motor towerLeft (12, MOTOR_DEF);
 Motor towerRight (9, MOTOR_REV);
 
 ADIDigitalIn jRed (1);

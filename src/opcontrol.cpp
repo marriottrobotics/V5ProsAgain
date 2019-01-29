@@ -13,6 +13,7 @@ void updateTower();
 
 int driveMode = 0;
 int loaderMode = 0;
+bool towerMode = false; //0 means analog movement. 1 means macro movement.
 
 bool direction = false; //False is normal
 bool brakes = false;
@@ -179,19 +180,23 @@ void directionSwap(){
 void updateTower(){
 	//Tower everything
 	if(joystick.get_digital(DIGITAL_DOWN)){
-		towerLeft.move(127/2);
+		towerMode = false;
+		//towerLeft.move(127/2);
 		towerRight.move(127/2);
 	}else if(joystick.get_digital(DIGITAL_UP)){
-		towerLeft.move(-127/2);
+		towerMode = false;
+		//towerLeft.move(-127/2);
 		towerRight.move(-127/2);
 	}else if(joystick.get_digital_new_press(DIGITAL_LEFT)){
-		towerLeft.move_absolute(93, 100);
+		towerMode = true;
+		//towerLeft.move_absolute(93, 100);
 		towerRight.move_absolute(93, 100);
 	}else if(joystick.get_digital_new_press(DIGITAL_RIGHT)){
-		towerLeft.move_absolute(414, 100);
+		towerMode = true;
+		//towerLeft.move_absolute(414, 100);
 		towerRight.move_absolute(414, 100);
-	}else{
-		towerLeft.move_velocity(0);
+	}else if(towerMode == false){
+		//towerLeft.move_velocity(0);
 		towerRight.move_velocity(0);
 	}
 }

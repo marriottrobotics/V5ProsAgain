@@ -83,7 +83,7 @@ extern Motor rightDriveR; // (19, MOTOR_REV);
 extern Motor loader; // (1, MOTOR_REV);
 extern Motor catipult; // (20, MOTOR_DEF);
 
-extern Motor towerLeft; //(12, MOTOR_DEF);
+//extern Motor towerLeft; //(12, MOTOR_DEF);
 extern Motor towerRight; //(9, MOTOR_REV);
 
 extern ADIDigitalIn jRed; //(1);
