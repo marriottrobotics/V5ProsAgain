@@ -16,6 +16,7 @@ void driveAsync(int distance, int speed);
 void turnUp(int distance, int speed);
 void slideUp(int distance, int speed);
 void alignUltrasonic();
+void fireAuton();
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -29,6 +30,8 @@ void alignUltrasonic();
  */
 void autonomous() {
   configureAuton(); //Make sure this is correct.
+
+  towerRight.move_absolute(-360, 100);
 
   if(top){
     autonTop();
@@ -63,20 +66,70 @@ void configureAuton(){
 
 void autonTop(){
    loader.move(127);
-   drive(1115, 50);
-   loader.move_relative(1080, 100);
+   leftDriveF.move(100);
+   leftDriveR.move(100);
+   rightDriveF.move(100);
+   rightDriveR.move(100);
 
-  drive(-1000, 50); //Drive until line sensor
-  turnUp(650, 50); //Then coordinate with ultrasonic sensors
-  alignUltrasonic();
-  drive(300, 50);
-  catipult.move_relative(1080, 100);
+   printf("Movement started \n");
+   pros::lcd::print(0, "Movement started");
+   while(lineLeft.get_value() < 2900){
+     //printf("Line sensor = %d \n", lineLeft.get_value());
+   }
+   printf("Controlled movement. \n");
+   pros::lcd::print(1, "ControlledMovement");
+   drive(900, 150);
+   loader.move_relative(360, 200);
+
+  drive(-1400, 150);
+  turnUp(690, 150); //Then coordinate with ultrasonic sensors
+  printf("\n Turn up completed. \n");
+
+  pros::lcd::print(1, "Flag 1");
+  //Drive to the first flag
+  leftDriveF.move(50);
+  leftDriveR.move(50);
+  rightDriveF.move(50);
+  rightDriveR.move(50);
+
+  //Wait for ultra
+  while(ultraLeft.get_value() > 1140){/*Nada*/}
+
+  leftDriveF.move_velocity(0);
+  leftDriveR.move_velocity(0);
+  rightDriveF.move_velocity(0);
+  rightDriveR.move_velocity(0);
+
+  fireAuton();
+
+  pros::lcd::print(2, "Flag 2");
+  loader.move_velocity(127);
+  //Drive to the second flag
+  leftDriveF.move(50);
+  leftDriveR.move(50);
+  rightDriveF.move(50);
+  rightDriveR.move(50);
+
+  //Wait for ultra
+  while(ultraLeft.get_value() > 440){/*Nada*/}
+
+  leftDriveF.move_velocity(0);
+  leftDriveR.move_velocity(0);
+  rightDriveF.move_velocity(0);
+  rightDriveR.move_velocity(0);
+
+  loader.move_relative(720, 100);
+
+  fireAuton();
+
+  /*drive(300, 150); //Towards falg
+  catipult.move_relative(1080, 200);
   loader.move(127);
-  drive(500, 50); //Then check ultrasonic distance
-  loader.move_relative(1440, -100);
-  catipult.move_relative(1080, 100);
-  slideUp(170, 100);
-  drive(600, 50);
+  drive(500, 150); //Then check ultrasonic distance
+  loader.move_relative(1440, -200);
+  catipult.move_relative(1080, 200);
+  slideUp(170, 150);
+  drive(600, 150);*/
 }
 
 void autonBottom(){
@@ -126,6 +179,9 @@ void turnUp(int distance, int speed){
       rightDriveF.move_relative(distance, speed);
       rightDriveR.move_relative(distance, speed);
     }
+    while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10){
+      //Do nothing
+    }
 }
 
 void slideUp(int distance, int speed){
@@ -139,6 +195,9 @@ void slideUp(int distance, int speed){
       leftDriveR.move_relative(distance, speed);
       rightDriveF.move_relative(distance, speed);
       rightDriveR.move_relative(-distance, speed);
+    }
+    while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10){
+      //Do nothing
     }
 }
 
@@ -173,4 +232,8 @@ void alignUltrasonic(){
     rightDriveF.move(0);
     rightDriveR.move(0);
   }
+}
+
+void fireAuton(){
+  catipult.move_relative(1080, 200);
 }

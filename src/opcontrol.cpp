@@ -38,6 +38,9 @@ void opcontrol() {
 		updateDirection();
 		updateCatipult();
 		updateTower();
+
+		printf("UltraLeft reading %d \n", ultraLeft.get_value());
+
 		delay(20);
 	}
 }
@@ -126,11 +129,15 @@ void updateBrakes(){
 void brake(){
     if(brakes){
       brakes = false;
+			leftDriveF.set_brake_mode(MOTOR_BRAKE_COAST);
+			leftDriveR.set_brake_mode(MOTOR_BRAKE_COAST);
+			rightDriveF.set_brake_mode(MOTOR_BRAKE_COAST);
+			rightDriveR.set_brake_mode(MOTOR_BRAKE_COAST);
     }else{
-			leftDriveF.move_absolute(leftDriveF.get_position(), 100);
-      leftDriveR.move_absolute(leftDriveR.get_position(), 100);
-			rightDriveF.move_absolute(rightDriveF.get_position(), 100);
-			rightDriveR.move_absolute(rightDriveR.get_position(), 100);
+			leftDriveF.set_brake_mode(MOTOR_BRAKE_HOLD);
+			leftDriveR.set_brake_mode(MOTOR_BRAKE_HOLD);
+			rightDriveF.set_brake_mode(MOTOR_BRAKE_HOLD);
+			rightDriveR.set_brake_mode(MOTOR_BRAKE_HOLD);
       brakes = true;
     }
 }
@@ -138,11 +145,11 @@ void brake(){
 
 //Catipult Stuff ---------------------------------------------------------------
 void fire(){
-	catipult.move_relative(1080, 100);
+	catipult.move_relative(1080, 200);
 }
 
 void updateCatipult(){
-	printf("Catipult Voltate %d \n", catipult.get_voltage());
+	//printf("Catipult Voltate %d \n", catipult.get_voltage());
 	//Automated kill switch. Not sure if it works.
 	if(catipult.get_voltage() >= 200 && catipult.is_stopped()){
 		pros::lcd::set_text(0, "WATCHDOG!!!");
@@ -179,22 +186,22 @@ void directionSwap(){
 //Tower Stuff ------------------------------------------------------------------
 void updateTower(){
 	//Tower everything
-	if(joystick.get_digital(DIGITAL_DOWN)){
+	if(joystick.get_digital(DIGITAL_UP)){
 		towerMode = false;
 		//towerLeft.move(127/2);
 		towerRight.move(127/2);
-	}else if(joystick.get_digital(DIGITAL_UP)){
+	}else if(joystick.get_digital(DIGITAL_DOWN)){
 		towerMode = false;
 		//towerLeft.move(-127/2);
 		towerRight.move(-127/2);
 	}else if(joystick.get_digital_new_press(DIGITAL_LEFT)){
 		towerMode = true;
 		//towerLeft.move_absolute(93, 100);
-		towerRight.move_absolute(93, 100);
+		towerRight.move_absolute(1195, 100);
 	}else if(joystick.get_digital_new_press(DIGITAL_RIGHT)){
 		towerMode = true;
 		//towerLeft.move_absolute(414, 100);
-		towerRight.move_absolute(414, 100);
+		towerRight.move_absolute(355, 100);
 	}else if(towerMode == false){
 		//towerLeft.move_velocity(0);
 		towerRight.move_velocity(0);
