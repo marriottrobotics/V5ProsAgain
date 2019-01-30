@@ -15,6 +15,8 @@ int driveMode = 0;
 int loaderMode = 0;
 bool towerMode = false; //0 means analog movement. 1 means macro movement.
 
+int catJoyLast = 0;
+
 bool direction = false; //False is normal
 bool brakes = false;
 /**
@@ -157,11 +159,12 @@ void updateCatipult(){
 	}
 
 	//Manual Kill Switch.
-	if(joystick.get_digital_new_press(DIGITAL_X)){
+	if(joystick.get_digital_new_press(DIGITAL_X) || joystick.get_analog(ANALOG_RIGHT_Y) - catJoyLast > 100){
 		catipult.move(0);
 	}
+	catJoyLast = joystick.get_analog(ANALOG_RIGHT_Y);
 
-	if(joystick.get_digital_new_press(DIGITAL_R1)){
+	if(joystick.get_digital_new_press(DIGITAL_R1) || joystick.get_digital_new_press(DIGITAL_Y)){
 		fire();
 	}
 }
@@ -202,6 +205,9 @@ void updateTower(){
 		towerMode = true;
 		//towerLeft.move_absolute(414, 100);
 		towerRight.move_absolute(355, 100);
+	}else if(joystick.get_digital_new_press(DIGITAL_B)){
+		towerMode = true;
+		towerRight.move_absolute(870, 100);
 	}else if(towerMode == false){
 		//towerLeft.move_velocity(0);
 		towerRight.move_velocity(0);

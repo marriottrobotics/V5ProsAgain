@@ -11,6 +11,7 @@ bool top = false;
 void autonTop();
 void autonBottom();
 
+void powerMotor(int speed);
 void drive(int distance, int speed);
 void driveAsync(int distance, int speed);
 void turnUp(int distance, int speed);
@@ -66,10 +67,8 @@ void configureAuton(){
 
 void autonTop(){
    loader.move(127);
-   leftDriveF.move(100);
-   leftDriveR.move(100);
-   rightDriveF.move(100);
-   rightDriveR.move(100);
+
+   powerMotor(100);
 
    printf("Movement started \n");
    pros::lcd::print(0, "Movement started");
@@ -87,36 +86,24 @@ void autonTop(){
 
   pros::lcd::print(1, "Flag 1");
   //Drive to the first flag
-  leftDriveF.move(50);
-  leftDriveR.move(50);
-  rightDriveF.move(50);
-  rightDriveR.move(50);
+  powerMotor(50);
 
   //Wait for ultra
   while(ultraLeft.get_value() > 1140){/*Nada*/}
 
-  leftDriveF.move_velocity(0);
-  leftDriveR.move_velocity(0);
-  rightDriveF.move_velocity(0);
-  rightDriveR.move_velocity(0);
+  powerMotor(0);
 
   fireAuton();
 
   pros::lcd::print(2, "Flag 2");
   loader.move_velocity(127);
   //Drive to the second flag
-  leftDriveF.move(50);
-  leftDriveR.move(50);
-  rightDriveF.move(50);
-  rightDriveR.move(50);
+  powerMotor(50);
 
   //Wait for ultra
   while(ultraLeft.get_value() > 440){/*Nada*/}
 
-  leftDriveF.move_velocity(0);
-  leftDriveR.move_velocity(0);
-  rightDriveF.move_velocity(0);
-  rightDriveR.move_velocity(0);
+  powerMotor(0);
 
   loader.move_relative(720, 100);
 
@@ -148,6 +135,13 @@ void autonBottom(){
   loader.move(0);
   slideUp(1650, 100);
   drive(1500, 100);
+}
+
+void powerMotor(int speed){
+  leftDriveF.move_velocity(speed);
+  leftDriveR.move_velocity(speed);
+  rightDriveF.move_velocity(speed);
+  rightDriveR.move_velocity(speed);
 }
 
 void drive(int distance, int speed){
@@ -236,4 +230,7 @@ void alignUltrasonic(){
 
 void fireAuton(){
   catipult.move_relative(1080, 200);
+
+  while(ABS(catipult.get_position()-catipult.get_target_position()) >= 5){/*Nil*/}
+  //Return and continue
 }
