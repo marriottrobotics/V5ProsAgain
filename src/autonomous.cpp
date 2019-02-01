@@ -143,7 +143,7 @@ void autonBottom(){
   drive(400, 150);
   slideUp(400, 300);
   drive(-350, 150);
-  towerSync(-500, 100);
+  towerSync(-300, 100);
 }
 
 void powerMotor(int speed){
