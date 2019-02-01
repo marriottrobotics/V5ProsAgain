@@ -189,19 +189,19 @@ void directionSwap(){
 //Tower Stuff ------------------------------------------------------------------
 void updateTower(){
 	//Tower everything
-	if(joystick.get_digital(DIGITAL_UP)){
+	if(joystick.get_digital(DIGITAL_RIGHT)){
 		towerMode = false;
 		towerLeft.move(127/2);
 		towerRight.move(127/2);
-	}else if(joystick.get_digital(DIGITAL_DOWN)){
+	}else if(joystick.get_digital(DIGITAL_LEFT)){
 		towerMode = false;
 		towerLeft.move(-127/2);
 		towerRight.move(-127/2);
-	}else if(joystick.get_digital_new_press(DIGITAL_LEFT)){
+	}else if(joystick.get_digital_new_press(DIGITAL_DOWN)){
 		towerMode = true;
 		towerLeft.move_absolute(1195, 100);
 		towerRight.move_absolute(1195, 100);
-	}else if(joystick.get_digital_new_press(DIGITAL_RIGHT)){
+	}else if(joystick.get_digital_new_press(DIGITAL_UP)){
 		towerMode = true;
 		towerLeft.move_absolute(355, 100);
 		towerRight.move_absolute(355, 100);
