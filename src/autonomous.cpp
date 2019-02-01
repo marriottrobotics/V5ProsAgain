@@ -18,6 +18,9 @@ void turnUp(int distance, int speed);
 void slideUp(int distance, int speed);
 void alignUltrasonic();
 void fireAuton();
+void towerPos(int newTarget, int speed);
+void towerSync(int newTarget, int speed);
+
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -80,8 +83,8 @@ void autonTop(){
    drive(900, 150);
    loader.move_relative(360, 200);
 
-  drive(-1400, 150);
-  turnUp(690, 150); //Then coordinate with ultrasonic sensors
+  drive(-1325, 150);
+  turnUp(650, 150); //Then coordinate with ultrasonic sensors?
   printf("\n Turn up completed. \n");
 
   pros::lcd::print(1, "Flag 1");
@@ -98,10 +101,10 @@ void autonTop(){
   pros::lcd::print(2, "Flag 2");
   loader.move_velocity(127);
   //Drive to the second flag
-  powerMotor(50);
+  powerMotor(75);
 
   //Wait for ultra
-  while(ultraLeft.get_value() > 440){/*Nada*/}
+  while(ultraLeft.get_value() > 550){/*Nada*/}
 
   powerMotor(0);
 
@@ -109,32 +112,38 @@ void autonTop(){
 
   fireAuton();
 
-  /*drive(300, 150); //Towards falg
-  catipult.move_relative(1080, 200);
-  loader.move(127);
-  drive(500, 150); //Then check ultrasonic distance
-  loader.move_relative(1440, -200);
-  catipult.move_relative(1080, 200);
-  slideUp(170, 150);
-  drive(600, 150);*/
+  slideUp(50, 200);
+  drive(600, 200);
+
+  loader.move_velocity(-150);
+
+  drive(-1000, 200);
+  turnUp(-600, 200);
+  drive(1000, 200);
+
+  turnUp(100, 200);
+  drive(500, 200);
 }
 
 void autonBottom(){
-  loader.move(127);
-  drive(1115, 50);
-  loader.move_relative(1080, 100);
+  towerSync(1100, 100);
 
-  drive(-400, 50);
-  loader.move(-127);
+  powerMotor(-100);
 
-  slideUp(-675, 100);
+  printf("Movement started \n");
+  pros::lcd::print(0, "Movement started");
+  while(lineLeft.get_value() < 2900){
+    //printf("Line sensor = %d \n", lineLeft.get_value());
+  }
+  printf("Controlled movement. \n");
+  pros::lcd::print(1, "ControlledMovement");
 
-  //Loader.stop();
-  drive(450, 25);
-  drive(-1155, 50);
-  loader.move(0);
-  slideUp(1650, 100);
-  drive(1500, 100);
+  drive(-750, 150);
+  slideUp(400, 200);
+  drive(400, 150);
+  slideUp(400, 300);
+  drive(-350, 150);
+  towerSync(-500, 100);
 }
 
 void powerMotor(int speed){
@@ -233,4 +242,14 @@ void fireAuton(){
 
   while(ABS(catipult.get_position()-catipult.get_target_position()) >= 5){/*Nil*/}
   //Return and continue
+}
+
+void towerPos(int newTarget, int speed){
+  towerLeft.move_relative(newTarget, speed);
+  towerRight.move_relative(newTarget, speed);
+}
+
+void towerSync(int newTarget, int speed){
+  towerPos(newTarget, speed);
+  while(ABS(towerRight.get_position()-towerRight.get_target_position()) > 5){/*Whatever*/}
 }
