@@ -189,26 +189,26 @@ void directionSwap(){
 //Tower Stuff ------------------------------------------------------------------
 void updateTower(){
 	//Tower everything
-	if(joystick.get_digital(DIGITAL_RIGHT)){
+	if(joystick.get_digital(DIGITAL_LEFT)){
 		towerMode = false;
-		towerLeft.move(127/2);
-		towerRight.move(127/2);
-	}else if(joystick.get_digital(DIGITAL_LEFT)){
+		towerLeft.move(200);
+		towerRight.move(200);
+	}else if(joystick.get_digital(DIGITAL_RIGHT)){
 		towerMode = false;
-		towerLeft.move(-127/2);
-		towerRight.move(-127/2);
+		towerLeft.move(-150);
+		towerRight.move(-150);
 	}else if(joystick.get_digital_new_press(DIGITAL_DOWN)){
 		towerMode = true;
-		towerLeft.move_absolute(1195, 100);
-		towerRight.move_absolute(1195, 100);
+		towerLeft.move_absolute(1195, 200);
+		towerRight.move_absolute(1195, 200);
 	}else if(joystick.get_digital_new_press(DIGITAL_UP)){
 		towerMode = true;
-		towerLeft.move_absolute(355, 100);
-		towerRight.move_absolute(355, 100);
+		towerLeft.move_absolute(355, 200);
+		towerRight.move_absolute(355, 200);
 	}else if(joystick.get_digital_new_press(DIGITAL_B)){
 		towerMode = true;
-		towerRight.move_absolute(870, 100);
-		towerLeft.move_absolute(870, 100);
+		towerRight.move_absolute(870, 200);
+		towerLeft.move_absolute(870, 200);
 	}else if(towerMode == false){
 		towerLeft.move_velocity(0);
 		towerRight.move_velocity(0);
