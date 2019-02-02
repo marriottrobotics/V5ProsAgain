@@ -93,7 +93,12 @@ void powerDrive(int leftf, int leftb, int rightf, int rightb){
 					rightDriveF.move(-leftb);
 					rightDriveR.move(-leftf);
         }
-    }
+    }else{
+			leftDriveF.move_velocity(0);
+			leftDriveR.move_velocity(0);
+			rightDriveF.move_velocity(0);
+			rightDriveR.move_velocity(0);
+		}
 }
 
 //Loader Stuff -----------------------------------------------------------------
