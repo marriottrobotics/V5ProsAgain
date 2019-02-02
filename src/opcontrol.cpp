@@ -41,7 +41,8 @@ void opcontrol() {
 		updateCatipult();
 		updateTower();
 
-		printf("UltraLeft reading %d \n", ultraLeft.get_value());
+		//printf("UltraLeft reading %d \n", ultraLeft.get_value());
+		printf("LineLeft %d \n", lineLeft.get_value());
 
 		delay(20);
 	}
