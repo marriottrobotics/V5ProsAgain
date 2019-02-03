@@ -83,8 +83,8 @@ void autonTop(){
    drive(900, 150);
    loader.move_relative(360, 200);
 
-  drive(-1325, 150);
-  turnUp(650, 150); //Then coordinate with ultrasonic sensors?
+  drive(-1200, 150);
+  turnUp(630, 150); //Then coordinate with ultrasonic sensors?
   printf("\n Turn up completed. \n");
 
   pros::lcd::print(1, "Flag 1");
@@ -92,7 +92,7 @@ void autonTop(){
   powerMotor(50);
 
   //Wait for ultra
-  while(ultraLeft.get_value() > 1140){/*Nada*/}
+  while(ultraRight.get_value() > 1140){/*Nada*/}
 
   powerMotor(0);
 
@@ -112,17 +112,18 @@ void autonTop(){
 
   fireAuton();
 
-  slideUp(50, 200);
-  drive(600, 200);
+  slideUp(100, 200);
+  drive(500, 200);
 
+  drive(-300, 200);
   loader.move_velocity(-150);
-
+/*
   drive(-1000, 200);
   turnUp(-600, 200);
   drive(1000, 200);
 
   turnUp(100, 200);
-  drive(500, 200);
+  drive(500, 200);*/
 }
 
 void autonBottom(){
