@@ -1,4 +1,5 @@
 #include "main.h"
+#include "Movements.h"
 
 #define BLUE false
 #define RED true
@@ -11,15 +12,7 @@ bool top = false;
 void autonTop();
 void autonBottom();
 
-void powerMotor(int speed);
-void drive(int distance, int speed);
-void driveAsync(int distance, int speed);
-void turnUp(int distance, int speed);
-void slideUp(int distance, int speed);
-void alignUltrasonic();
-void fireAuton();
-void towerPos(int newTarget, int speed);
-void towerSync(int newTarget, int speed);
+using namespace Movement;
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -37,7 +30,7 @@ void autonomous() {
 
   towerRight.move_absolute(-360, 100);
 
-  if(top){
+  if(Movement::top){
     autonTop();
   }else{
     autonBottom();
@@ -46,24 +39,24 @@ void autonomous() {
 
 void configureAuton(){
   if(jRed.get_value() == HIGH){
-    red = RED;
+    Movement::red = RED;
   }else{
-    red = BLUE;
+    Movement::red = BLUE;
   }
 
   if(jTop.get_value() == HIGH){
-    top = TOP;
+    Movement::top = TOP;
   }else{
-    top = BOTTOM;
+    Movement::top = BOTTOM;
   }
 
-  if(red && top){
+  if(Movement::red && Movement::top){
     pros::lcd::print(0, "Red Top");
-  }else if(red && !top){
+  }else if(Movement::red && !Movement::top){
     pros::lcd::print(0, "Red Bottom");
-  }else if(!red && top){
+  }else if(!Movement::red && Movement::top){
     pros::lcd::print(0, "Blue Top");
-  }else if(!red && !top){
+  }else if(!Movement::red && !Movement::top){
     pros::lcd::print(0, "Blue Bottom");
   }
 }
@@ -145,112 +138,4 @@ void autonBottom(){
   slideUp(400, 300);
   drive(-350, 150);
   towerSync(-300, 100);
-}
-
-void powerMotor(int speed){
-  leftDriveF.move_velocity(speed);
-  leftDriveR.move_velocity(speed);
-  rightDriveF.move_velocity(speed);
-  rightDriveR.move_velocity(speed);
-}
-
-void drive(int distance, int speed){
-  leftDriveF.move_relative(distance, speed);
-  leftDriveR.move_relative(distance, speed);
-  rightDriveF.move_relative(distance, speed);
-  rightDriveR.move_relative(distance, speed);
-  while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10){
-    //Do nothing
-  }
-}
-
-void driveAsync(int distance, int speed){
-  leftDriveF.move_relative(distance, speed);
-  leftDriveR.move_relative(distance, speed);
-  rightDriveF.move_relative(distance, speed);
-  rightDriveR.move_relative(distance, speed);
-}
-
-void turnUp(int distance, int speed){
-    if(!red){
-      leftDriveF.move_relative(distance, speed);
-      leftDriveR.move_relative(distance, speed);
-      rightDriveF.move_relative(-distance, speed);
-      rightDriveR.move_relative(-distance, speed);
-    }else{
-      leftDriveF.move_relative(-distance, speed);
-      leftDriveR.move_relative(-distance, speed);
-      rightDriveF.move_relative(distance, speed);
-      rightDriveR.move_relative(distance, speed);
-    }
-    while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10){
-      //Do nothing
-    }
-}
-
-void slideUp(int distance, int speed){
-    if(!red){
-      leftDriveF.move_relative(distance, speed);
-      leftDriveR.move_relative(-distance, speed);
-      rightDriveF.move_relative(-distance, speed);
-      rightDriveR.move_relative(distance, speed);
-    }else{
-      leftDriveF.move_relative(-distance, speed);
-      leftDriveR.move_relative(distance, speed);
-      rightDriveF.move_relative(distance, speed);
-      rightDriveR.move_relative(-distance, speed);
-    }
-    while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10){
-      //Do nothing
-    }
-}
-
-void alignUltrasonic(){
-  if(ultraLeft.get_value() - ultraRight.get_value() > 5){
-    //Turn Right
-    leftDriveF.move(-25);
-    leftDriveR.move(-25);
-    rightDriveF.move(25);
-    rightDriveR.move(25);
-
-    while(ultraLeft.get_value()-ultraRight.get_value() > 5){
-      delay(20);
-    }
-    //Stop
-    leftDriveF.move(0);
-    leftDriveR.move(0);
-    rightDriveF.move(0);
-    rightDriveR.move(0);
-  }else if(ultraRight.get_value() - ultraLeft.get_value() > 5){
-    //Turn Left
-    leftDriveF.move(25);
-    leftDriveR.move(25);
-    rightDriveF.move(-25);
-    rightDriveR.move(-25);
-    while(ultraLeft.get_value()-ultraRight.get_value() > 5){
-      delay(20);
-    }
-    //Stop
-    leftDriveF.move(0);
-    leftDriveR.move(0);
-    rightDriveF.move(0);
-    rightDriveR.move(0);
-  }
-}
-
-void fireAuton(){
-  catipult.move_relative(1080, 200);
-
-  while(ABS(catipult.get_position()-catipult.get_target_position()) >= 5){/*Nil*/}
-  //Return and continue
-}
-
-void towerPos(int newTarget, int speed){
-  towerLeft.move_relative(newTarget, speed);
-  towerRight.move_relative(newTarget, speed);
-}
-
-void towerSync(int newTarget, int speed){
-  towerPos(newTarget, speed);
-  while(ABS(towerRight.get_position()-towerRight.get_target_position()) > 5){/*Whatever*/}
 }
