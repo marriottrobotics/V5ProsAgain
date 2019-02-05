@@ -62,37 +62,47 @@ void Movement::slideUp(int distance, int speed){
     }
 }
 
-void Movement::alignUltrasonic(){
-  if(ultraLeft.get_value() - ultraRight.get_value() > 5){
+void Movement::alignUltrasonic(int rotateVelocity, int threshold, int delayTime){
+  //printf("Ultra align started \n");
+  //printf("Left %d, Right %d \n", ultraLeft.get_value(), ultraRight.get_value());
+  if(ultraLeft.get_value() - ultraRight.get_value() > 0){
+    //printf("Left bigger. \n");
     //Turn Right
-    leftDriveF.move(-25);
-    leftDriveR.move(-25);
-    rightDriveF.move(25);
-    rightDriveR.move(25);
+    leftDriveF.move_velocity(rotateVelocity);
+    leftDriveR.move_velocity(rotateVelocity);
+    rightDriveF.move_velocity(-rotateVelocity);
+    rightDriveR.move_velocity(-rotateVelocity);
 
-    while(ultraLeft.get_value()-ultraRight.get_value() > 5){
-      delay(20);
+    while(ultraLeft.get_value()-ultraRight.get_value() > threshold){
+      delay(delayTime);
     }
     //Stop
     leftDriveF.move(0);
     leftDriveR.move(0);
     rightDriveF.move(0);
     rightDriveR.move(0);
-  }else if(ultraRight.get_value() - ultraLeft.get_value() > 5){
+  }else if(ultraRight.get_value() - ultraLeft.get_value() > 0){
+    //printf("Right bigger \n");
     //Turn Left
-    leftDriveF.move(25);
-    leftDriveR.move(25);
-    rightDriveF.move(-25);
-    rightDriveR.move(-25);
-    while(ultraLeft.get_value()-ultraRight.get_value() > 5){
-      delay(20);
+    leftDriveF.move_velocity(-rotateVelocity);
+    leftDriveR.move_velocity(-rotateVelocity);
+    rightDriveF.move_velocity(rotateVelocity);
+    rightDriveR.move_velocity(rotateVelocity);
+    //printf("Movement issued \n");
+
+    while(ultraRight.get_value()-ultraLeft.get_value() > threshold){
+      delay(delayTime);
+      //printf("Left %d, Right %d \n", ultraLeft.get_value(), ultraRight.get_value());
     }
+    //printf("Stopped \n");
     //Stop
     leftDriveF.move(0);
     leftDriveR.move(0);
     rightDriveF.move(0);
     rightDriveR.move(0);
   }
+
+  //printf("Alligned.\n");
 }
 
 void Movement::fireAuton(){

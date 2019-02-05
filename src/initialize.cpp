@@ -21,7 +21,8 @@ ADIUltrasonic ultraLeft (3, 4);
 ADIUltrasonic ultraRight (5, 6);
 
 ADILineSensor lineRight (7);
-ADILineSensor lineLeft(8);
+//ADILineSensor lineLeft(8);
+ADIDigitalIn towerLimit(8);
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -54,7 +55,6 @@ void disabled() {}
  */
 void competition_initialize() {
 	lineRight.calibrate();
-	lineLeft.calibrate();
 
 	while(true){
 		configureAuton();

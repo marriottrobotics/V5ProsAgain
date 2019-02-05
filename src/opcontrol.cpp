@@ -13,7 +13,7 @@ void updateTower();
 
 int driveMode = 0;
 int loaderMode = 0;
-bool towerMode = false; //0 means analog movement. 1 means macro movement.
+int towerMode = 0; //0 means analog movement. 1 means macro movement. 2 means down.
 
 int catJoyLast = 0;
 
@@ -40,9 +40,6 @@ void opcontrol() {
 		updateDirection();
 		updateCatipult();
 		updateTower();
-
-		//printf("UltraLeft reading %d \n", ultraLeft.get_value());
-		printf("LineLeft %d \n", lineLeft.get_value());
 
 		delay(20);
 	}
@@ -195,29 +192,37 @@ void directionSwap(){
 //Tower Stuff ------------------------------------------------------------------
 void updateTower(){
 	//Tower everything
-	if(joystick.get_digital(DIGITAL_LEFT)){
-		towerMode = false;
+	if(joystick.get_digital(DIGITAL_LEFT) && towerLimit.get_value() == false){
+		towerMode = 0;
 		towerLeft.move(200);
 		towerRight.move(200);
-	}else if(joystick.get_digital(DIGITAL_RIGHT)){
-		towerMode = false;
+	}else if(joystick.get_digital(DIGITAL_RIGHT) && towerLeft.get_position() > 0 && towerRight.get_position() > 0){
+		towerMode = 0;
 		towerLeft.move(-150);
 		towerRight.move(-150);
 	}else if(joystick.get_digital_new_press(DIGITAL_DOWN)){
-		towerMode = true;
-		towerLeft.move_absolute(1195, 200);
-		towerRight.move_absolute(1195, 200);
+		towerMode = 2;
+		//towerLeft.move_absolute(1195, 200);
+		//towerRight.move_absolute(1195, 200);
+		towerLeft.move(200);
+		towerRight.move(200);
 	}else if(joystick.get_digital_new_press(DIGITAL_UP)){
-		towerMode = true;
+		towerMode = 1;
 		towerLeft.move_absolute(355, 200);
 		towerRight.move_absolute(355, 200);
 	}else if(joystick.get_digital_new_press(DIGITAL_B)){
-		towerMode = true;
+		towerMode = 1;
 		towerRight.move_absolute(870, 200);
 		towerLeft.move_absolute(870, 200);
-	}else if(towerMode == false){
+	}else if(towerMode == 0){
 		towerLeft.move_velocity(0);
 		towerRight.move_velocity(0);
+	}
+
+	if(towerMode == 2 && towerLimit.get_value() == true){
+		towerLeft.move_velocity(0);
+		towerRight.move_velocity(0);
+		towerMode = 0;
 	}
 }
 //End Tower Stuff --------------------------------------------------------------

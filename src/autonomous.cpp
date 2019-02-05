@@ -27,14 +27,13 @@ using namespace Movement;
  */
 void autonomous() {
   configureAuton(); //Make sure this is correct.
-
-  towerRight.move_absolute(-360, 100);
-
+  alignUltrasonic(25, 1, 1);
+/*
   if(Movement::top){
     autonTop();
   }else{
     autonBottom();
-  }
+  }*/
 }
 
 void configureAuton(){
@@ -68,7 +67,7 @@ void autonTop(){
 
    printf("Movement started \n");
    pros::lcd::print(0, "Movement started");
-   while(lineLeft.get_value() < 2900){
+   while(lineRight.get_value() < 2900){
      //printf("Line sensor = %d \n", lineLeft.get_value());
    }
    printf("Controlled movement. \n");
@@ -126,7 +125,7 @@ void autonBottom(){
 
   printf("Movement started \n");
   pros::lcd::print(0, "Movement started");
-  while(lineLeft.get_value() < 2900){
+  while(lineRight.get_value() < 2900){
     //printf("Line sensor = %d \n", lineLeft.get_value());
   }
   printf("Controlled movement. \n");

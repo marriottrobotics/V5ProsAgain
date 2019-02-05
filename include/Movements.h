@@ -11,7 +11,8 @@ namespace Movement{
   void driveAsync(int distance, int speed);
   void turnUp(int distance, int speed);
   void slideUp(int distance, int speed);
-  void alignUltrasonic();
+  //This needs to be fixed.
+  void alignUltrasonic(int rotateVelocity = 50, int threshold = 0, int delayTime = 5);
   void fireAuton();
   void towerPos(int newTarget, int speed);
   void towerSync(int newTarget, int speed);

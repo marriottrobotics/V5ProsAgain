@@ -93,7 +93,9 @@ extern ADIUltrasonic ultraLeft; //(3, 4);
 extern ADIUltrasonic ultraRight; //(5, 6);
 
 extern ADILineSensor lineRight; //(7);
-extern ADILineSensor lineLeft; //(8);
+//extern ADILineSensor lineLeft; //(8);
+
+extern ADIDigitalIn towerLimit; //(8);
 
 #ifdef __cplusplus
 }
