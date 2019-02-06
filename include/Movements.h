@@ -5,7 +5,7 @@ namespace Movement{
   extern bool red;
   extern bool top;
 
-  void powerDrive(int leftF, int leftR, int rightF, int rightR);
+  //void powerDrive(int leftF, int leftR, int rightF, int rightR);
   void powerMotor(int speed);
   void drive(int distance, int speed);
   void driveAsync(int distance, int speed);

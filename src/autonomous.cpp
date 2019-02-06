@@ -27,7 +27,14 @@ using namespace Movement;
  */
 void autonomous() {
   configureAuton(); //Make sure this is correct.
-  alignUltrasonic(25, 1, 1);
+
+  //Prototype acceleration
+  for(int i = 50; i <= 200; i+=1){
+    printf("Power now at %d, motor at %f \n", i, leftDriveR.get_position());
+    powerMotor(i);
+    delay(10);
+  }
+  powerMotor(0);
 /*
   if(Movement::top){
     autonTop();
