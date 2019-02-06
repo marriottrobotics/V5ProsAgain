@@ -1,5 +1,6 @@
 #include "Movements.h"
 #include <iostream>
+#include <math.h>
 
 bool Movement::red = false;
 bool Movement::top = false;
@@ -105,6 +106,36 @@ void Movement::alignUltrasonic(int rotateVelocity, int threshold, int delayTime)
   //printf("Alligned.\n");
 }
 
+void Movement::alignAlternate(float rotateVelocity, int threshold, int delayTime){
+  while(ABS(ultraLeft.get_value() - ultraRight.get_value()) > threshold){
+    int error = ultraLeft.get_value() - ultraRight.get_value();
+
+    printf("Left %d, right %d, error %d \n", ultraLeft.get_value(), ultraRight.get_value(), error);
+
+    leftDriveF.move_velocity(rotateVelocity*error);
+    leftDriveR.move_velocity(rotateVelocity*error);
+    rightDriveF.move_velocity(-rotateVelocity*error);
+    rightDriveR.move_velocity(-rotateVelocity*error);
+
+    delay(delayTime);
+  }
+  powerMotor(0);
+}
+
+void Movement::alignTime(int rotateVelocity, int time, int delayTime){
+  for(int i = 0; i < time; i++){
+    int error = ultraLeft.get_value() - ultraRight.get_value();
+
+    leftDriveF.move_velocity(rotateVelocity+error);
+    leftDriveR.move_velocity(rotateVelocity+error);
+    rightDriveF.move_velocity(-rotateVelocity-error);
+    rightDriveR.move_velocity(-rotateVelocity-error);
+
+    delay(delayTime);
+  }
+  powerMotor(0);
+}
+
 void Movement::fireAuton(){
   catipult.move_relative(1080, 200);
 
@@ -120,4 +151,26 @@ void Movement::towerPos(int newTarget, int speed){
 void Movement::towerSync(int newTarget, int speed){
   towerPos(newTarget, speed);
   while(ABS(towerRight.get_position()-towerRight.get_target_position()) > 5){/*Whatever*/}
+}
+
+void Movement::moveAccel(int distance){
+  printf("Starting Accl \n");
+  int accltime = distance/2;
+  int initial = leftDriveF.get_position();
+  double diff = 0;
+  double coef = 3.0/1250.0;
+  //printf("Coef = %f \n", coef);
+  //Accelerate
+  while(ABS(leftDriveF.get_position() - initial) < 250){
+    diff = ABS(leftDriveF.get_position() - initial);
+    printf("Diff %f \n", diff);
+    double speed = (coef*pow(diff, 2)) + 50;
+    int speedBuf = (int)speed;
+    powerMotor(speedBuf);
+    delay(1);
+  }
+  printf("Acceleration complete \n");
+
+  powerMotor(200);
+  //while((diff = ABS(leftDriveF.get_position() - initial)) )
 }

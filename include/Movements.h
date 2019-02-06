@@ -13,7 +13,11 @@ namespace Movement{
   void slideUp(int distance, int speed);
   //This needs to be fixed.
   void alignUltrasonic(int rotateVelocity = 50, int threshold = 0, int delayTime = 5);
+  void alignAlternate(float rotateVelocity = 25, int threshold = 3, int delayTime = 5);
+  void alignTime(int rotateVelocity = 25, int time = 0, int delayTime = 5);
   void fireAuton();
   void towerPos(int newTarget, int speed);
   void towerSync(int newTarget, int speed);
+
+  void moveAccel(int distance);
 }
