@@ -155,13 +155,19 @@ void Movement::towerSync(int newTarget, int speed){
 
 void Movement::moveAccel(int distance){
   printf("Starting Accl \n");
-  int accltime = distance/2;
+
+  int accelTime = 250;
+  //Calculate the time accel and decel should be taking.
+  if(distance < 500){
+    accelTime = distance / 2;
+  }
+
   int initial = leftDriveF.get_position();
   double diff = 0;
   double coef = 3.0/1250.0;
   //printf("Coef = %f \n", coef);
   //Accelerate
-  while(ABS(leftDriveF.get_position() - initial) < 250){
+  while(ABS(leftDriveF.get_position() - initial) < accelTime){
     diff = ABS(leftDriveF.get_position() - initial);
     printf("Diff %f \n", diff);
     double speed = (coef*pow(diff, 2)) + 50;
@@ -172,5 +178,18 @@ void Movement::moveAccel(int distance){
   printf("Acceleration complete \n");
 
   powerMotor(200);
-  //while((diff = ABS(leftDriveF.get_position() - initial)) )
+  //Continue at full speed.
+  while(distance - ABS(leftDriveF.get_position()-initial) > accelTime){
+    delay(5);
+  }
+  //Decelerate. *This is going to have issues with posative and negative movement.
+  while(distance - ABS(leftDriveF.get_position()-initial) > 0){
+    diff = distance - ABS(leftDriveF.get_position()-initial);
+    double speed = 200.0 - coef*pow(diff, 2);
+    int speedBuf = (int)speed;
+    powerMotor(speedBuf);
+    delay(1);
+  }
+
+  powerMotor(0);
 }
