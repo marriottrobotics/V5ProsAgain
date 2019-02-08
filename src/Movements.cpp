@@ -169,7 +169,7 @@ void Movement::moveAccel(int distance){
   //Accelerate
   while(ABS(leftDriveF.get_position() - initial) < accelTime){
     diff = ABS(leftDriveF.get_position() - initial);
-    printf("Diff %f \n", diff);
+    //printf("Diff %f \n", diff);
     double speed = (coef*pow(diff, 2)) + 50;
     int speedBuf = (int)speed;
     powerMotor(speedBuf);
@@ -179,17 +179,19 @@ void Movement::moveAccel(int distance){
 
   powerMotor(200);
   //Continue at full speed.
-  while(distance - ABS(leftDriveF.get_position()-initial) > accelTime){
+  while(ABS(distance) - ABS(leftDriveF.get_position()-initial) > accelTime){
     delay(5);
   }
+  printf("Deceleration started \n");
   //Decelerate. *This is going to have issues with posative and negative movement.
-  while(distance - ABS(leftDriveF.get_position()-initial) > 0){
+  while(ABS(distance) - ABS(leftDriveF.get_position()-initial) > 0){
     diff = distance - ABS(leftDriveF.get_position()-initial);
     double speed = 200.0 - coef*pow(diff, 2);
     int speedBuf = (int)speed;
     powerMotor(speedBuf);
     delay(1);
   }
+  printf("Decel ended. Motor at %f", leftDriveF.get_position());
 
   powerMotor(0);
 }
