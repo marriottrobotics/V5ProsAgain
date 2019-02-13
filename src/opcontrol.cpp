@@ -194,8 +194,8 @@ void updateTower(){
 	//Tower everything
 	if(joystick.get_digital(DIGITAL_LEFT) && towerLimit.get_value() == false){
 		towerMode = 0;
-		towerLeft.move(200);
-		towerRight.move(200);
+		towerLeft.move(150);
+		towerRight.move(150);
 	}else if(joystick.get_digital(DIGITAL_RIGHT) && towerLeft.get_position() > 0 && towerRight.get_position() > 0){
 		towerMode = 0;
 		towerLeft.move(-150);
@@ -204,16 +204,16 @@ void updateTower(){
 		towerMode = 2;
 		//towerLeft.move_absolute(1195, 200);
 		//towerRight.move_absolute(1195, 200);
-		towerLeft.move(200);
-		towerRight.move(200);
+		towerLeft.move(150);
+		towerRight.move(150);
 	}else if(joystick.get_digital_new_press(DIGITAL_UP)){
 		towerMode = 1;
-		towerLeft.move_absolute(355, 200);
-		towerRight.move_absolute(355, 200);
+		towerLeft.move_absolute(355, 150);
+		towerRight.move_absolute(355, 150);
 	}else if(joystick.get_digital_new_press(DIGITAL_B)){
 		towerMode = 1;
-		towerRight.move_absolute(870, 200);
-		towerLeft.move_absolute(870, 200);
+		towerRight.move_absolute(870, 150);
+		towerLeft.move_absolute(870, 150);
 	}else if(towerMode == 0){
 		towerLeft.move_velocity(0);
 		towerRight.move_velocity(0);

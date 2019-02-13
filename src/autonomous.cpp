@@ -11,6 +11,7 @@ bool top = false;
 
 void autonTop();
 void autonBottom();
+void brakesOn();
 
 using namespace Movement;
 
@@ -28,20 +29,13 @@ using namespace Movement;
 void autonomous() {
   configureAuton(); //Make sure this is correct.
 
-  moveAccel(1000);
-  //Prototype acceleration
-  /*for(int i = 50; i <= 200; i+=1){
-    printf("Power now at %d, motor at %f \n", i, leftDriveR.get_position());
-    powerMotor(i);
-    delay(10);
-  }
-  powerMotor(0);*/
-/*
+  brakesOn();
+
   if(Movement::top){
     autonTop();
   }else{
     autonBottom();
-  }*/
+  }
 }
 
 void configureAuton(){
@@ -80,7 +74,7 @@ void autonTop(){
    }
    printf("Controlled movement. \n");
    pros::lcd::print(1, "ControlledMovement");
-   drive(900, 150);
+   moveAccel(900); //drive(900, 150);
    loader.move_relative(360, 200);
 
   drive(-1200, 150);
@@ -88,7 +82,14 @@ void autonTop(){
   printf("\n Turn up completed. \n");
 
   pros::lcd::print(1, "Flag 1");
+
+  //Testing new code
+  //alignUltrasonic();
+  //distUltrasonic(1140);
+  //End test block
+
   //Drive to the first flag
+
   powerMotor(50);
 
   //Wait for ultra
@@ -108,12 +109,16 @@ void autonTop(){
 
   powerMotor(0);
 
+  //Testing new code
+  //alignUltrasonic();
+  //distUltrasonic(550);
+
   loader.move_relative(720, 100);
 
   fireAuton();
 
   slideUp(100, 200);
-  drive(500, 200);
+  moveAccel(500); //drive(500, 200);
 
   drive(-300, 200);
   loader.move_velocity(-150);
@@ -145,4 +150,11 @@ void autonBottom(){
   slideUp(400, 300);
   drive(-350, 150);
   towerSync(-300, 100);
+}
+
+void brakesOn(){
+  leftDriveF.set_brake_mode(MOTOR_BRAKE_HOLD);
+  leftDriveR.set_brake_mode(MOTOR_BRAKE_HOLD);
+  rightDriveF.set_brake_mode(MOTOR_BRAKE_HOLD);
+  rightDriveR.set_brake_mode(MOTOR_BRAKE_HOLD);
 }

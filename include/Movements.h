@@ -18,6 +18,7 @@ namespace Movement{
   void fireAuton();
   void towerPos(int newTarget, int speed);
   void towerSync(int newTarget, int speed);
-
   void moveAccel(int distance);
+  void distUltrasonic(int target, int threshold = 10, int delayTime = 5, double rotateVelocity = 0.5);
+  int currentSensor();
 }

@@ -165,6 +165,7 @@ void Movement::moveAccel(int distance){
   int initial = leftDriveF.get_position();
   double diff = 0;
   double coef = 3.0/1250.0;
+  double decelCoef = 200.0/62500.0;
   //printf("Coef = %f \n", coef);
   //Accelerate
   while(ABS(leftDriveF.get_position() - initial) < accelTime){
@@ -179,19 +180,48 @@ void Movement::moveAccel(int distance){
 
   powerMotor(200);
   //Continue at full speed.
-  while(ABS(distance) - ABS(leftDriveF.get_position()-initial) > accelTime){
-    delay(5);
+  while(ABS(distance) - (ABS((leftDriveF.get_position()-initial))) > accelTime){
+    delay(1);
   }
-  printf("Deceleration started \n");
+  printf("Deceleration started Ticks relative %f \n", ABS(leftDriveF.get_position()-initial));
   //Decelerate. *This is going to have issues with posative and negative movement.
-  while(ABS(distance) - ABS(leftDriveF.get_position()-initial) > 0){
-    diff = distance - ABS(leftDriveF.get_position()-initial);
-    double speed = 200.0 - coef*pow(diff, 2);
+  while(ABS(distance) - (ABS((leftDriveF.get_position()-initial))) > 0){
+    diff = ABS(distance) - ABS(leftDriveF.get_position()-initial);
+    diff = accelTime-diff;
+    double speed = (-200.0/250.0) * diff + 200;
     int speedBuf = (int)speed;
+    //printf("Relative position = %f, power %d \n", diff, speedBuf);
     powerMotor(speedBuf);
     delay(1);
   }
-  printf("Decel ended. Motor at %f", leftDriveF.get_position());
+  printf("Decel ended. Motor at %f \n", ABS(leftDriveF.get_position()-initial));
 
   powerMotor(0);
+}
+
+void Movement::distUltrasonic(int target, int threshold, int delayTime, double rotateVelocity){
+  double error = 0;
+  while(ABS(currentSensor() - target) > threshold){
+
+    error = currentSensor() - target;
+
+    //printf("Left %d, target %d, error %f \n", ultraLeft.get_value(), target, error);
+
+    //printf("Power = %f \n", rotateVelocity*error);
+    leftDriveF.move_velocity(rotateVelocity*error);
+    leftDriveR.move_velocity(rotateVelocity*error);
+    rightDriveF.move_velocity(rotateVelocity*error);
+    rightDriveR.move_velocity(rotateVelocity*error);
+
+    delay(delayTime);
+  }
+  powerMotor(0);
+}
+
+int Movement::currentSensor(){
+  if(red){
+    return ultraLeft.get_value();
+  }else{
+    return ultraRight.get_value();
+  }
 }
