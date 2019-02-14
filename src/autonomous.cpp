@@ -132,7 +132,51 @@ void autonTop(){
 }
 
 void autonBottom(){
-  towerSync(1100, 100);
+  printf("Tower start \n");
+  towerLeft.move_velocity(150);
+  towerRight.move_velocity(150);
+  while(towerLimit.get_value() != 1) {delay(1);}
+  towerLeft.move_relative(50, 50);
+  towerRight.move_relative(50, 50);
+  printf("Tower Stop \n");
+  powerMotor(-100);
+
+  printf("Movement started \n");
+  pros::lcd::print(0, "Movement started");
+  while(lineRight.get_value() < 2900){
+    //printf("Line sensor = %d \n", lineLeft.get_value());
+  }
+  printf("Controlled movement. \n");
+  pros::lcd::print(1, "ControlledMovement");
+  drive(-700, 200);
+
+  //slideUp(350, 200);
+  drive(500, 200);
+  printf("Slide \n");
+  slideUp(800, 200);
+  alignTime(5, 1000, 1);
+  printf("Alligned \n");
+  drive(-500, 50);
+  towerSync(-300, 50);
+  printf("Grabbed \n");
+  distUltrasonic(700);
+
+  turnUp(666, 50);
+  printf("Turned \n");
+  alignTime(5, 500, 1);
+  printf("Aligned \n");
+
+  distUltrasonic(44);
+
+  towerSync(-500, 200);
+  drive(-400, 200);
+  towerSync(-300, 200);
+  slideUp(575, 200);
+  alignTime(5, 250, 1);
+  printf("Park? \n");
+
+  drive(-1500, 200);
+  /*towerSync(1100, 100);
 
   powerMotor(-100);
 
@@ -149,7 +193,7 @@ void autonBottom(){
   drive(400, 150);
   slideUp(400, 300);
   drive(-350, 150);
-  towerSync(-300, 100);
+  towerSync(-300, 100);*/
 }
 
 void brakesOn(){
