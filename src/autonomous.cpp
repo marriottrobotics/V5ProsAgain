@@ -171,11 +171,11 @@ void autonBottom(){
   towerSync(-500, 200);
   drive(-400, 200);
   towerSync(-300, 200);
-  slideUp(575, 200);
+  slideUp(650, 200);
   alignTime(5, 250, 1);
+  distUltrasonic(235);
   printf("Park? \n");
-
-  drive(-1500, 200);
+  drive(-2000, 200);
   /*towerSync(1100, 100);
 
   powerMotor(-100);
