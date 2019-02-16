@@ -140,7 +140,6 @@ void autonBottom(){
   towerRight.move_relative(50, 50);
   printf("Tower Stop \n");
   powerMotor(-100);
-
   printf("Movement started \n");
   pros::lcd::print(0, "Movement started");
   while(lineRight.get_value() < 2900){
@@ -153,10 +152,10 @@ void autonBottom(){
   //slideUp(350, 200);
   drive(500, 200);
   printf("Slide \n");
-  slideUp(800, 200);
-  alignTime(5, 1000, 1);
+  slideUp(750, 200);
+  alignTime(5, 750, 1);
   printf("Alligned \n");
-  drive(-500, 50);
+  drive(-450, 100);
   towerSync(-300, 50);
   printf("Grabbed \n");
   distUltrasonic(700);
@@ -171,29 +170,11 @@ void autonBottom(){
   towerSync(-500, 200);
   drive(-400, 200);
   towerSync(-300, 200);
-  slideUp(650, 200);
+  slideUp(350, 200);
   alignTime(5, 250, 1);
   distUltrasonic(235);
   printf("Park? \n");
   drive(-2000, 200);
-  /*towerSync(1100, 100);
-
-  powerMotor(-100);
-
-  printf("Movement started \n");
-  pros::lcd::print(0, "Movement started");
-  while(lineRight.get_value() < 2900){
-    //printf("Line sensor = %d \n", lineLeft.get_value());
-  }
-  printf("Controlled movement. \n");
-  pros::lcd::print(1, "ControlledMovement");
-
-  drive(-750, 150);
-  slideUp(400, 200);
-  drive(400, 150);
-  slideUp(400, 300);
-  drive(-350, 150);
-  towerSync(-300, 100);*/
 }
 
 void brakesOn(){

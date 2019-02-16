@@ -17,7 +17,8 @@ void Movement::drive(int distance, int speed){
   leftDriveR.move_relative(distance, speed);
   rightDriveF.move_relative(distance, speed);
   rightDriveR.move_relative(distance, speed);
-  while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10){
+  while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10 || ABS(rightDriveF.get_position()-rightDriveF.get_target_position()) >= 10
+    || ABS(leftDriveF.get_position()-leftDriveF.get_target_position()) >= 10 || ABS(leftDriveR.get_position()-leftDriveR.get_target_position()) >= 10){
     //Do nothing
   }
 }
