@@ -20,6 +20,7 @@ void Movement::drive(int distance, int speed){
   while(ABS(rightDriveR.get_position()-rightDriveR.get_target_position()) >= 10 || ABS(rightDriveF.get_position()-rightDriveF.get_target_position()) >= 10
     || ABS(leftDriveF.get_position()-leftDriveF.get_target_position()) >= 10 || ABS(leftDriveR.get_position()-leftDriveR.get_target_position()) >= 10){
     //Do nothing
+    delay(1);
   }
 }
 
@@ -225,4 +226,12 @@ int Movement::currentSensor(){
   }else{
     return ultraRight.get_value();
   }
+}
+
+void Movement::towerDown(){
+  towerLeft.move_velocity(150);
+  towerRight.move_velocity(150);
+  while(towerLimit.get_value() != 1) {delay(1);}
+  towerLeft.move_velocity(0);
+  towerRight.move_velocity(0);
 }

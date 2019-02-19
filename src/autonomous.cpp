@@ -1,13 +1,13 @@
 #include "main.h"
 #include "Movements.h"
+#include "skillsauton.hpp"
 
 #define BLUE false
 #define RED true
 #define TOP true
 #define BOTTOM false
 
-bool red = false;
-bool top = false;
+bool skillchallange = true;
 
 void autonTop();
 void autonBottom();
@@ -31,7 +31,11 @@ void autonomous() {
 
   brakesOn();
 
-  if(Movement::top){
+  if(skillchallange){
+    red = true;
+    top = false;
+    skills::skillsAuton();
+  }else if(Movement::top){
     autonTop();
   }else{
     autonBottom();
