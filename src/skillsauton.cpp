@@ -17,9 +17,9 @@ using namespace Movement;
     }
     printf("Controlled movement. \n");
     pros::lcd::print(1, "ControlledMovement");
-    drive(-700, 200);
+    drive(-650, 150);
 
-    towerSync(-200, 200);
+    towerSync(-300, 200);
 
     towerDown();
 
@@ -44,12 +44,35 @@ using namespace Movement;
     towerSync(-500, 200);
     drive(-400, 200);
     towerDown();
-    distUltrasonic(183);
-    turnUp(-660, 150);
+    //End firt cap.
+    //Second cap
+    distUltrasonic(170);
+    turnUp(-630, 150);
     alignTime(5, 1000, 1);
     printf("End bottom auton \n");
 
-    drive(-900, 200);
-    towerSync(-300, 50);
-    drive(-500, 50);
+    drive(-1000, 200);
+    towerSync(-300, 150);
+    drive(-1100, 150);
+    turnUp(630, 150);
+    alignTime(5, 1000, 1);
+    distUltrasonic(44);
+    towerSync(-500, 200);
+    drive(-400, 200);
+    towerLeft.move_absolute(0, 150);
+    towerRight.move_absolute(0, 150);
+    //End Second Cap.
+
+    //Flag?
+    distUltrasonic(763);
+    turnUp(-630, 150);
+    loader.move_velocity(-150);
+    drive(500, 200);
+    loader.move_relative(1080, -200);
+    drive(-1000, 200);
+
+    //Turn to Flag
+    turnUp(630, 150);
+    drive(1000, 200);
+    
   }
