@@ -22,4 +22,5 @@ namespace Movement{
   void distUltrasonic(int target, int threshold = 10, int delayTime = 5, double rotateVelocity = 0.5);
   int currentSensor();
   void towerDown();
+  void slideAlign(int distance);
 }

@@ -3,6 +3,7 @@
 
 namespace skills{
   void skillsAuton();
+  void justPark();
 }
 
 #endif /* end of include guard:  */

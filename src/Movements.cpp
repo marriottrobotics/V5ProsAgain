@@ -232,6 +232,38 @@ void Movement::towerDown(){
   towerLeft.move_velocity(150);
   towerRight.move_velocity(150);
   while(towerLimit.get_value() != 1) {delay(1);}
-  towerLeft.move_velocity(0);
-  towerRight.move_velocity(0);
+  towerLeft.move_relative(25, 150);
+  towerRight.move_relative(25, 150);
+}
+
+void Movement::slideAlign(int distance){
+  printf("Starting setup \n");
+  int start = leftDriveF.get_position();
+  int fVel = 200;
+  int rVel = -200;
+  int err = ultraLeft.get_value()-ultraRight.get_value();
+  leftDriveF.move_velocity(fVel);
+  leftDriveR.move_velocity(rVel);
+  rightDriveF.move_velocity(rVel);
+  rightDriveR.move_velocity(fVel);
+  printf("Starting loop \n");
+  while(ABS(leftDriveF.get_position()-start) < distance){
+    err = ultraLeft.get_value()-ultraRight.get_value();
+    if(err > 0){
+      fVel = 200 + err;
+      rVel = 200;
+    }else if(err < 0){
+      rVel = -200 + err; //Err is - so it is 200 - ABS(err)
+      fVel = 200;
+    }else{
+      rVel = -200;
+      fVel = 200;
+    }
+    printf("Looping with err %d, fVel %d, rVel %d \n", err, fVel, rVel);
+    leftDriveF.move_velocity(fVel);
+    leftDriveR.move_velocity(rVel);
+    rightDriveF.move_velocity(rVel);
+    rightDriveR.move_velocity(fVel);
+    delay(1);
+  }
 }

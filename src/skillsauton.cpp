@@ -30,7 +30,7 @@ using namespace Movement;
     alignTime(5, 750, 1);
     printf("Alligned \n");
     drive(-450, 100);
-    towerSync(-300, 50);
+    towerSync(-300, 150);
     printf("Grabbed \n");
     distUltrasonic(700);
 
@@ -41,7 +41,7 @@ using namespace Movement;
 
     distUltrasonic(44);
 
-    towerSync(-500, 200);
+    towerSync(-500, 150);
     drive(-400, 200);
     towerDown();
     //End firt cap.
@@ -52,27 +52,34 @@ using namespace Movement;
     printf("End bottom auton \n");
 
     drive(-1000, 200);
-    towerSync(-300, 150);
-    drive(-1100, 150);
+    towerSync(-200, 150);
+    drive(-1050, 150);
     turnUp(630, 150);
     alignTime(5, 1000, 1);
     distUltrasonic(44);
-    towerSync(-500, 200);
+    towerSync(-500, 150);
     drive(-400, 200);
     towerLeft.move_absolute(0, 150);
     towerRight.move_absolute(0, 150);
     //End Second Cap.
 
-    //Flag?
+    //Flag? No. Cap instead.
     distUltrasonic(763);
     turnUp(-630, 150);
-    loader.move_velocity(-150);
+    loader.move_velocity(2000);
     drive(500, 200);
-    loader.move_relative(1080, -200);
+    loader.move_relative(1080, 200);
     drive(-1000, 200);
 
     //Turn to Flag
-    turnUp(630, 150);
+    turnUp(-630, 150);
     drive(1000, 200);
-    
   }
+
+void skills::justPark(){
+    slideAlign(1500);
+    /*
+    alignTime(2, 1000, 1);
+    distUltrasonic(42);
+    drive(-1200, 200);*/
+}

@@ -63,11 +63,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/Movements.cpp.o",
-            "src\\Movements.cpp"
+            "bin/opcontrol.cpp.o",
+            "src\\opcontrol.cpp"
         ],
         "directory": "C:\\Users\\kaide\\Documents\\Robotics Software\\V5Take2",
-        "file": "src\\Movements.cpp"
+        "file": "src\\opcontrol.cpp"
     },
     {
         "arguments": [
@@ -133,11 +133,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/opcontrol.cpp.o",
-            "src\\opcontrol.cpp"
+            "bin/skillsauton.cpp.o",
+            "src\\skillsauton.cpp"
         ],
         "directory": "C:\\Users\\kaide\\Documents\\Robotics Software\\V5Take2",
-        "file": "src\\opcontrol.cpp"
+        "file": "src\\skillsauton.cpp"
     },
     {
         "arguments": [
@@ -168,10 +168,10 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/skillsauton.cpp.o",
-            "src\\skillsauton.cpp"
+            "bin/Movements.cpp.o",
+            "src\\Movements.cpp"
         ],
         "directory": "C:\\Users\\kaide\\Documents\\Robotics Software\\V5Take2",
-        "file": "src\\skillsauton.cpp"
+        "file": "src\\Movements.cpp"
     }
 ]

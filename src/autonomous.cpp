@@ -34,7 +34,7 @@ void autonomous() {
   if(skillchallange){
     red = true;
     top = false;
-    skills::skillsAuton();
+    skills::justPark();
   }else if(Movement::top){
     autonTop();
   }else{
