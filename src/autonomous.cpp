@@ -7,7 +7,7 @@
 #define TOP true
 #define BOTTOM false
 
-bool skillchallange = true;
+bool skillchallange = false;
 
 void autonTop();
 void autonBottom();
@@ -34,7 +34,7 @@ void autonomous() {
   if(skillchallange){
     red = true;
     top = false;
-    skills::justPark();
+    skills::skillsAuton();
   }else if(Movement::top){
     autonTop();
   }else{
