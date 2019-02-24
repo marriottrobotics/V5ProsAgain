@@ -81,7 +81,7 @@ void autonTop(){
    moveAccel(900); //drive(900, 150);
    loader.move_relative(360, 200);
 
-  drive(-1200, 150);
+  drive(-1250, 150);
   turnUp(630, 150); //Then coordinate with ultrasonic sensors?
   printf("\n Turn up completed. \n");
 
