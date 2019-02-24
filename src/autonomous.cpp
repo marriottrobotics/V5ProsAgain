@@ -124,7 +124,7 @@ void autonTop(){
   slideUp(100, 200);
   moveAccel(500); //drive(500, 200);
 
-  drive(-300, 200);
+  drive(-400, 200);
   loader.move_velocity(-150);
 /*
   drive(-1000, 200);
