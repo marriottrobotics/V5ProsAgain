@@ -97,7 +97,9 @@ void autonTop(){
   powerMotor(50);
 
   //Wait for ultra
-  while(ultraRight.get_value() > 1140){/*Nada*/}
+  while(ultraRight.get_value() > 1140){/*Nada*/
+    printf("UltraRight %d", ultraRight.get_value());
+  }
 
   powerMotor(0);
 
@@ -156,13 +158,13 @@ void autonBottom(){
   //slideUp(350, 200);
   drive(500, 200);
   printf("Slide \n");
-  slideUp(750, 200);
+  slideUp(800, 200);
   alignTime(5, 750, 1);
   printf("Alligned \n");
   drive(-450, 100);
   towerSync(-300, 50);
   printf("Grabbed \n");
-  distUltrasonic(700);
+  distUltrasonic(650);
 
   turnUp(666, 50);
   printf("Turned \n");
@@ -177,8 +179,9 @@ void autonBottom(){
   slideUp(350, 200);
   alignTime(5, 250, 1);
   distUltrasonic(235);
-  printf("Park? \n");
-  drive(-2000, 200);
+
+  //printf("Park? \n");
+  //drive(-2000, 200);
 }
 
 void brakesOn(){

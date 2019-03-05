@@ -26,7 +26,7 @@ using namespace Movement;
     //slideUp(350, 200);
     drive(500, 200);
     printf("Slide \n");
-    slideUp(750, 200);
+    slideUp(800, 200);
     alignTime(5, 750, 1);
     printf("Alligned \n");
     drive(-450, 100);
