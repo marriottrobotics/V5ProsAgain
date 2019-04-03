@@ -64,7 +64,7 @@ void Movement::slideUp(int distance, int speed){
       //Do nothing
     }
 }
-
+/*
 void Movement::alignUltrasonic(int rotateVelocity, int threshold, int delayTime){
   //printf("Ultra align started \n");
   //printf("Left %d, Right %d \n", ultraLeft.get_value(), ultraRight.get_value());
@@ -137,7 +137,7 @@ void Movement::alignTime(int rotateVelocity, int time, int delayTime){
   }
   powerMotor(0);
 }
-
+*/
 void Movement::fireAuton(){
   catipult.move_relative(1080, 200);
 
@@ -221,11 +221,7 @@ void Movement::distUltrasonic(int target, int threshold, int delayTime, double r
 }
 
 int Movement::currentSensor(){
-  if(red){
-    return ultraLeft.get_value();
-  }else{
     return ultraRight.get_value();
-  }
 }
 
 void Movement::towerDown(){
@@ -235,7 +231,7 @@ void Movement::towerDown(){
   towerLeft.move_relative(25, 150);
   towerRight.move_relative(25, 150);
 }
-
+/*
 void Movement::slideAlign(int distance){
   printf("Starting setup \n");
   int start = leftDriveF.get_position();
@@ -267,3 +263,4 @@ void Movement::slideAlign(int distance){
     delay(1);
   }
 }
+*/

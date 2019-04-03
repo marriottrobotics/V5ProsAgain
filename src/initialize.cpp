@@ -17,7 +17,7 @@ Motor towerRight (9, MOTOR_REV);
 ADIDigitalIn jRed (1);
 ADIDigitalIn jTop (2);
 
-ADIUltrasonic ultraLeft (3, 4);
+//ADIUltrasonic ultraLeft (3, 4);
 ADIUltrasonic ultraRight (5, 6);
 
 ADILineSensor lineRight (7);

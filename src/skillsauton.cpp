@@ -27,7 +27,7 @@ using namespace Movement;
     drive(500, 200);
     printf("Slide \n");
     slideUp(800, 200);
-    alignTime(5, 750, 1);
+    //alignTime(5, 750, 1);
     printf("Alligned \n");
     drive(-450, 100);
     towerSync(-300, 150);
@@ -36,7 +36,7 @@ using namespace Movement;
 
     turnUp(666, 50);
     printf("Turned \n");
-    alignTime(5, 500, 1);
+    //alignTime(5, 500, 1);
     printf("Aligned \n");
 
     distUltrasonic(44);
@@ -48,14 +48,14 @@ using namespace Movement;
     //Second cap
     distUltrasonic(170);
     turnUp(-630, 150);
-    alignTime(5, 1000, 1);
+    //alignTime(5, 1000, 1);
     printf("End bottom auton \n");
 
     drive(-1000, 200);
     towerSync(-200, 150);
     drive(-1050, 150);
     turnUp(630, 150);
-    alignTime(5, 1000, 1);
+    //alignTime(5, 1000, 1);
     distUltrasonic(44);
     towerSync(-500, 150);
     drive(-400, 200);
@@ -77,7 +77,7 @@ using namespace Movement;
   }
 
 void skills::justPark(){
-    slideAlign(1500);
+    //slideAlign(1500);
     /*
     alignTime(2, 1000, 1);
     distUltrasonic(42);

@@ -89,7 +89,7 @@ extern Motor towerRight; //(9, MOTOR_REV);
 extern ADIDigitalIn jRed; //(1);
 extern ADIDigitalIn jTop; //(2);
 
-extern ADIUltrasonic ultraLeft; //(3, 4);
+//extern ADIUltrasonic ultraLeft; //(3, 4);
 extern ADIUltrasonic ultraRight; //(5, 6);
 
 extern ADILineSensor lineRight; //(7);

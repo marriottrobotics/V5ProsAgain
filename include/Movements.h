@@ -12,9 +12,9 @@ namespace Movement{
   void turnUp(int distance, int speed);
   void slideUp(int distance, int speed);
   //This needs to be fixed.
-  void alignUltrasonic(int rotateVelocity = 50, int threshold = 0, int delayTime = 5);
-  void alignAlternate(float rotateVelocity = 25, int threshold = 3, int delayTime = 5);
-  void alignTime(int rotateVelocity = 25, int time = 0, int delayTime = 5);
+  //void alignUltrasonic(int rotateVelocity = 50, int threshold = 0, int delayTime = 5);
+  //void alignAlternate(float rotateVelocity = 25, int threshold = 3, int delayTime = 5);
+  //void alignTime(int rotateVelocity = 25, int time = 0, int delayTime = 5);
   void fireAuton();
   void towerPos(int newTarget, int speed);
   void towerSync(int newTarget, int speed);
@@ -22,5 +22,5 @@ namespace Movement{
   void distUltrasonic(int target, int threshold = 10, int delayTime = 5, double rotateVelocity = 0.5);
   int currentSensor();
   void towerDown();
-  void slideAlign(int distance);
+  //void slideAlign(int distance);
 }
