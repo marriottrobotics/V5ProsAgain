@@ -41,7 +41,7 @@ void opcontrol() {
 		updateCatipult();
 		updateTower();
 
-		printf("UltraRight %d, UltraLeft NA \n", ultraRight.get_value());
+		//printf("UltraRight %d, UltraLeft NA \n", ultraRight.get_value());
 		//printf("LineSensor %d \n", lineRight.get_value());
 
 		delay(20);
@@ -201,16 +201,16 @@ void updateTower(){
 		towerRight.move(100);
 	}else if(joystick.get_digital(DIGITAL_RIGHT) && towerLeft.get_position() > 0 && towerRight.get_position() > 0){
 		towerMode = 0;
-		towerLeft.move(-100);
-		towerRight.move(-100);
+		towerLeft.move(-75);
+		towerRight.move(-75);
 	}else if(joystick.get_digital_new_press(DIGITAL_DOWN)){
 		towerMode = 2;
-		towerLeft.move(100);
-		towerRight.move(100);
+		towerLeft.move(75);
+		towerRight.move(75);
 	}else if(joystick.get_digital_new_press(DIGITAL_UP)){
 		towerMode = 1;
-		towerLeft.move_absolute(355, 200);
-		towerRight.move_absolute(355, 200);
+		towerLeft.move_absolute(355, 150);
+		towerRight.move_absolute(355, 150);
 	}else if(joystick.get_digital_new_press(DIGITAL_B)){
 		towerMode = 1;
 		towerRight.move_absolute(870, 100);
